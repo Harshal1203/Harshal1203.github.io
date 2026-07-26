@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Harshal Patil — ML Engineer</title>
+<meta name="description" content="Harshal Patil builds production machine-learning systems: RAG pipelines, multi-agent workflows, and MLOps infrastructure. Software Engineer at Jash Data Sciences, Pune.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<script>
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('theme'); } catch (e) {}
+  if (t !== 'light' && t !== 'dark') {
+    t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+<style>
+  :root, [data-theme="light"] {
+    --paper: #F7F8F6;
+    --panel: #EDF0EE;
+    --ink: #191C1F;
+    --muted: #5B636D;
+    --accent: #1F77B4;      /* matplotlib C0 */
+    --accent-soft: #DCEAF5;
+    --rule: #CDD2D3;
+    --line: #9BA2A8;        /* diagram strokes */
+    --max: 43rem;
+  }
+
+  [data-theme="dark"] {
+    --paper: #16181B;
+    --panel: #1C1F23;
+    --ink: #E6E4DE;
+    --muted: #98A0A8;
+    --accent: #6FB1DF;
+    --accent-soft: #24405C;
+    --rule: #33383E;
+    --line: #545C63;
+  }
+
+  /* no-JS fallback */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --paper: #16181B;
+      --panel: #1C1F23;
+      --ink: #E6E4DE;
+      --muted: #98A0A8;
+      --accent: #6FB1DF;
+      --accent-soft: #24405C;
+      --rule: #33383E;
+      --line: #545C63;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent-soft); }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 120ms ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-left: 1.375rem;
+    padding-right: 1.375rem;
+  }
+
+  /* ---------- nav ---------- */
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+  }
+  .nav .brand { color: var(--ink); font-weight: 500; }
+  .nav .links { display: flex; align-items: center; gap: 1.2rem; }
+  .nav .links a { color: var(--muted); }
+  .nav .links a:hover { color: var(--accent); }
+
+  .theme-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 0.28rem 0.6rem;
+    cursor: pointer;
+  }
+  .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- header ---------- */
+
+  header { padding: 4rem 0 3.75rem; }
+
+  .kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    margin-bottom: 1.75rem;
+  }
+
+  .abstract {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    font-size: 1.125rem;
+    max-width: 38rem;
+  }
+
+  .fig1 { margin-top: 2.2rem; }
+  .fig1 svg { width: min(270px, 100%); height: auto; display: block; }
+  .figcap {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.45rem;
+  }
+
+  .authorline {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+  }
+  .authorline a { color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .authorline a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---------- sections ---------- */
+
+  section, footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 4.25rem;
+    padding-bottom: 3.25rem;
+    scroll-margin-top: 1rem;
+  }
+  footer { padding-bottom: 4.5rem; }
+
+  h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 1.55rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2.4rem;
+  }
+  h2::before {
+    content: "§ ";
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--accent);
+    vertical-align: 0.12em;
+    margin-right: 0.15rem;
+  }
+
+  /* ---------- project entries ---------- */
+
+  .project { margin-bottom: 3.5rem; }
+  .project:last-child { margin-bottom: 0; }
+  .project + .project {
+    border-top: 1px dashed var(--rule);
+    padding-top: 3.25rem;
+  }
+
+  .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.74rem;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    margin-bottom: 0.55rem;
+  }
+  .meta b { color: var(--accent); font-weight: 500; }
+
+  h3 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+  }
+
+  .project p { margin-bottom: 0.9rem; max-width: 40rem; }
+  .project p:last-child { margin-bottom: 0; }
+
+  .result {
+    font-weight: 600;
+    background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
+  }
+
+  /* ---------- diagrams ---------- */
+
+  .diagram {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.1rem 1rem 0.9rem;
+    margin: 1.4rem 0 1.3rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .diagram svg {
+    min-width: 600px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .diagram-cap {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .db { fill: none; stroke: var(--line); stroke-width: 1; }
+  .dl { font: 500 11px "IBM Plex Mono", monospace; fill: var(--ink); }
+  .dl2 { font: 500 10px "IBM Plex Mono", monospace; fill: var(--ink); }
+  .ds { font: 400 9.5px "IBM Plex Mono", monospace; fill: var(--muted); }
+  .da { stroke: var(--accent); stroke-width: 1.2; fill: none; }
+  .dd { stroke: var(--muted); stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+
+  /* ---------- also shipped ---------- */
+
+  .brief-list { list-style: none; max-width: 40rem; }
+  .brief-list li {
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .brief-list li:first-child { border-top: 0; padding-top: 0; }
+  .brief-list .name {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  /* ---------- experience ---------- */
+
+  .role-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .role-head h3 { margin-bottom: 0; }
+  .dates {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+  .edu {
+    margin-top: 1.6rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- tooling ---------- */
+
+  .tools { list-style: none; max-width: 40rem; }
+  .tools li {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .tools .grp {
+    color: var(--accent);
+    font-weight: 500;
+    display: inline-block;
+    min-width: 7.5rem;
+  }
+
+  /* ---------- footer ---------- */
+
+  .contact-line {
+    font-size: 1.2rem;
+    max-width: 38rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .colophon {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2.75rem;
+  }
+</style>
+</head>
+<body>
+
+<nav class="wrap nav" aria-label="Site">
+  <span class="brand">harshal.patil</span>
+  <span class="links">
+    <a href="#work">work</a>
+    <a href="#experience">experience</a>
+    <a href="#contact">contact</a>
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle color theme">☾ dark</button>
+  </span>
+</nav>
+
+<header class="wrap">
+  <p class="kicker">Software Engineer — Data + AI · Pune, India (IST)</p>
+  <h1>Harshal Patil</h1>
+  <p class="abstract">
+    I build machine-learning systems that run in production: retrieval pipelines,
+    multi-agent workflows, and the training, deployment, and monitoring
+    infrastructure around them. Currently at Jash&nbsp;Data&nbsp;Sciences, working
+    across AWS, PyTorch, and the LangChain/LangGraph stack.
+  </p>
+
+  <figure class="fig1">
+    <svg viewBox="0 0 250 78" role="img" aria-label="A small plot of training and validation loss curves descending and converging">
+      <polyline class="db" points="28,6 28,60 240,60"/>
+      <path class="dd" d="M30,14 L40,23 50,30 62,35.5 76,40 92,43.5 110,46 130,47.5 152,48.4 178,49 205,49.4 236,49.6"/>
+      <path class="da" d="M30,10 L38,20 46,27 56,33 66,38 78,42 92,45.5 108,48 126,50 146,51.5 170,52.5 200,53.2 236,53.6"/>
+      <text class="ds" x="2" y="12">loss</text>
+      <text class="ds" x="240" y="72" text-anchor="end">steps</text>
+    </svg>
+    <figcaption class="figcap">fig. 1 — the general shape of the job.</figcaption>
+  </figure>
+
+  <p class="authorline">
+    <a href="mailto:patil.n.harshal12@gmail.com">patil.n.harshal12@gmail.com</a>
+    <a href="https://github.com/Harshal1203" rel="me">github</a>
+    <a href="https://www.linkedin.com/in/harshal-patil-08a727213/" rel="me">linkedin</a>
+  </p>
+</header>
+
+<main>
+  <section class="wrap" id="work">
+    <h2>selected systems</h2>
+
+    <article class="project">
+      <p class="meta">2025 — <b>LangGraph · Gemini · FastAPI · PostgreSQL</b></p>
+      <h3>NL2SQL multi-agent system</h3>
+      <p>
+        Business teams needed answers from relational databases without waiting on
+        a SQL-literate analyst. I built a pipeline of specialized agents — schema
+        retrieval, query generation, validation, and a critic that re-evaluates
+        and repairs broken SQL before it ever executes.
+      </p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 640 150" role="img" aria-label="Block diagram: question flows through schema retrieval, SQL generation, and a critic that loops back to repair queries before execution on PostgreSQL. A dashed path shows cache hits bypassing the pipeline.">
+          <defs>
+            <marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/>
+            </marker>
+            <marker id="m1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/>
+            </marker>
+          </defs>
+          <path class="dd" d="M45,58 L45,20 L601,20 L601,54" marker-end="url(#m1)"/>
+          <text class="ds" x="323" y="14" text-anchor="middle">semantic cache hit</text>
+
+          <rect class="db" x="2" y="58" width="86" height="34"/>
+          <text class="dl" x="45" y="79" text-anchor="middle">question</text>
+
+          <line class="da" x1="88" y1="75" x2="120" y2="75" marker-end="url(#a1)"/>
+
+          <rect class="db" x="122" y="58" width="124" height="34"/>
+          <text class="dl" x="184" y="79" text-anchor="middle">schema retrieval</text>
+
+          <line class="da" x1="246" y1="75" x2="278" y2="75" marker-end="url(#a1)"/>
+
+          <rect class="db" x="280" y="58" width="104" height="34"/>
+          <text class="dl" x="332" y="79" text-anchor="middle">generate SQL</text>
+
+          <line class="da" x1="384" y1="75" x2="412" y2="75" marker-end="url(#a1)"/>
+
+          <rect class="db" x="414" y="58" width="120" height="34"/>
+          <text class="dl" x="474" y="79" text-anchor="middle">critic / validate</text>
+
+          <line class="da" x1="534" y1="75" x2="562" y2="75" marker-end="url(#a1)"/>
+
+          <rect class="db" x="564" y="58" width="74" height="34"/>
+          <text class="dl" x="601" y="79" text-anchor="middle">Postgres</text>
+
+          <path class="da" d="M474,92 L474,122 L332,122 L332,96" marker-end="url(#a1)"/>
+          <text class="ds" x="403" y="136" text-anchor="middle">repair loop</text>
+        </svg>
+      </div>
+
+      <p>
+        Embedding-based schema retrieval surfaces only the tables relevant to each
+        question, which keeps the model's context small on wide databases.
+        <span class="result">Semantic caching short-circuits repeat queries</span>,
+        so similar questions stop triggering redundant LLM calls. Shipped as a
+        REST API over PostgreSQL, handling multi-table joins and aggregations
+        from plain-English input.
+      </p>
+    </article>
+
+    <article class="project">
+      <p class="meta">2025 — <b>AWS ECS Fargate · Pinecone · Elasticsearch · SageMaker</b></p>
+      <h3>Regulatory compliance document assistant</h3>
+      <p>
+        Compliance teams work against regulator circulars — RBI, SEBI — that
+        change constantly, and missing an update carries real risk. I architected
+        a multi-service RAG platform on AWS: asynchronous S3→SQS ingestion,
+        hybrid retrieval fusing Pinecone vector search with Elasticsearch keyword
+        search via reciprocal rank fusion, then BGE reranking and context
+        compression before generation.
+      </p>
+
+      <div class="diagram">
+        <p class="diagram-cap">ingest (async): docs → S3 → SQS → SageMaker embeddings → index</p>
+        <svg viewBox="0 0 640 150" role="img" aria-label="Block diagram: a query fans out to Pinecone vector search and Elasticsearch keyword search, results merge through reciprocal rank fusion, then BGE reranking, then the LLM produces an answer scored with RAGAS faithfulness.">
+          <defs>
+            <marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/>
+            </marker>
+          </defs>
+          <rect class="db" x="2" y="58" width="70" height="34"/>
+          <text class="dl" x="37" y="79" text-anchor="middle">query</text>
+
+          <path class="da" d="M72,75 L88,75 L88,35 L104,35" marker-end="url(#a2)"/>
+          <path class="da" d="M72,75 L88,75 L88,109 L104,109" marker-end="url(#a2)"/>
+
+          <rect class="db" x="106" y="20" width="130" height="30"/>
+          <text class="dl2" x="171" y="39" text-anchor="middle">Pinecone (vector)</text>
+
+          <rect class="db" x="106" y="94" width="130" height="30"/>
+          <text class="dl2" x="171" y="113" text-anchor="middle">Elasticsearch (BM25)</text>
+
+          <path class="da" d="M236,35 L252,35 L252,75 L268,75" marker-end="url(#a2)"/>
+          <path class="da" d="M236,109 L252,109 L252,75 L268,75"/>
+
+          <rect class="db" x="270" y="58" width="64" height="34"/>
+          <text class="dl" x="302" y="79" text-anchor="middle">RRF</text>
+
+          <line class="da" x1="334" y1="75" x2="366" y2="75" marker-end="url(#a2)"/>
+
+          <rect class="db" x="368" y="58" width="110" height="34"/>
+          <text class="dl" x="423" y="79" text-anchor="middle">BGE rerank</text>
+
+          <line class="da" x1="478" y1="75" x2="510" y2="75" marker-end="url(#a2)"/>
+
+          <rect class="db" x="512" y="58" width="126" height="34"/>
+          <text class="dl" x="575" y="79" text-anchor="middle">LLM → answer</text>
+
+          <line class="dd" x1="575" y1="92" x2="575" y2="104"/>
+          <text class="ds" x="575" y="116" text-anchor="middle">RAGAS faithfulness</text>
+        </svg>
+      </div>
+
+      <p>
+        Answers are <span class="result">grounded in retrieved passages and
+        scored with RAGAS faithfulness metrics</span> rather than trusted
+        blindly. Runs on ECS Fargate behind an ALB, with document sources,
+        prompts, and LLM providers all configurable at runtime.
+      </p>
+    </article>
+
+    <article class="project">
+      <p class="meta">2025 — <b>PyTorch · MLflow · Kubeflow · Kubernetes</b></p>
+      <h3>Intent classification with the full MLOps loop</h3>
+      <p>
+        A support-ticket router predicting user intent across 150+ categories.
+        Fine-tuned DistilBERT on CLINC150 with a custom PyTorch training loop:
+        <span class="result">96% validation accuracy against an 82.4% TF-IDF
+        baseline, P95 inference latency under 100&nbsp;ms</span> on a FastAPI
+        server autoscaling on Kubernetes.
+      </p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 640 150" role="img" aria-label="Block diagram: training on Kubeflow feeds an MLflow registry, models pass a 91 percent promotion gate before Kubernetes deployment, Evidently monitors drift and triggers retraining in a loop.">
+          <defs>
+            <marker id="a3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/>
+            </marker>
+          </defs>
+          <rect class="db" x="2" y="44" width="104" height="34"/>
+          <text class="dl2" x="54" y="65" text-anchor="middle">train · Kubeflow</text>
+
+          <line class="da" x1="106" y1="61" x2="134" y2="61" marker-end="url(#a3)"/>
+
+          <rect class="db" x="136" y="44" width="112" height="34"/>
+          <text class="dl2" x="192" y="65" text-anchor="middle">MLflow registry</text>
+
+          <line class="da" x1="248" y1="61" x2="274" y2="61" marker-end="url(#a3)"/>
+
+          <rect class="db" x="276" y="44" width="84" height="34"/>
+          <text class="dl2" x="318" y="65" text-anchor="middle">gate ≥ 91%</text>
+
+          <line class="da" x1="360" y1="61" x2="386" y2="61" marker-end="url(#a3)"/>
+
+          <rect class="db" x="388" y="44" width="96" height="34"/>
+          <text class="dl2" x="436" y="65" text-anchor="middle">deploy · K8s</text>
+
+          <line class="da" x1="484" y1="61" x2="510" y2="61" marker-end="url(#a3)"/>
+
+          <rect class="db" x="512" y="44" width="126" height="34"/>
+          <text class="dl2" x="575" y="65" text-anchor="middle">monitor · Evidently</text>
+
+          <path class="da" d="M575,78 L575,118 L54,118 L54,82" marker-end="url(#a3)"/>
+          <text class="ds" x="315" y="132" text-anchor="middle">drift detected → retrain (GitHub Actions)</text>
+        </svg>
+      </div>
+
+      <p>
+        The part I care about more than the model: MLflow experiment tracking and
+        a model registry with automated promotion gates, a Kubeflow retraining
+        pipeline triggered from GitHub Actions, and Evidently drift monitoring
+        that kicks off retraining when the input distribution shifts.
+      </p>
+    </article>
+  </section>
+
+  <section class="wrap">
+    <h2>also shipped</h2>
+    <ul class="brief-list">
+      <li>
+        <span class="name">Industry research chatbot</span> — RAG assistant for
+        the rent-to-own market on AWS Bedrock and OpenSearch, serverless Lambda
+        pipeline with query decomposition and reranking.
+      </li>
+      <li>
+        <span class="name">Agentic program configurator</span> — LangGraph system
+        that replaced a 6–8 week manual mentorship-program setup with adaptive
+        conversational configuration, cutting it to hours.
+      </li>
+      <li>
+        <span class="name">CRM ingestion pipeline</span> — deduplication for a US
+        state-government data vendor using LSH/MinHash, bringing record matching
+        from O(n²) to O(n), with LLM-assisted review reserved for low-confidence
+        matches only.
+      </li>
+    </ul>
+  </section>
+
+  <section class="wrap" id="experience">
+    <h2>experience</h2>
+    <div class="project">
+      <div class="role-head">
+        <h3>Jash Data Sciences</h3>
+        <span class="dates">Software Engineer I (Data + AI) · Aug 2024 — present</span>
+      </div>
+      <p>
+        Production GenAI and MLOps work for clients in regulatory compliance,
+        mentorship platforms, and government data management. Full model
+        lifecycle: data preprocessing, training and fine-tuning, experiment
+        tracking, cloud deployment, and monitoring.
+      </p>
+      <p class="edu">B.E. Computer Engineering, University of Pune — 2024.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>tooling</h2>
+    <ul class="tools">
+      <li><span class="grp">modeling</span> PyTorch · HuggingFace · scikit-learn · XGBoost</li>
+      <li><span class="grp">llm stack</span> LangChain · LangGraph · Bedrock · Gemini · RAGAS · Ollama</li>
+      <li><span class="grp">mlops</span> MLflow · Kubeflow · DVC · Docker · Kubernetes · GitHub Actions · Evidently</li>
+      <li><span class="grp">infra</span> AWS (Lambda · ECS · SageMaker · OpenSearch) · PostgreSQL · Pinecone · Elasticsearch</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap" id="contact">
+  <h2>contact</h2>
+  <p class="contact-line">
+    The fastest way to reach me is
+    <a href="mailto:patil.n.harshal12@gmail.com">patil.n.harshal12@gmail.com</a>.
+    I'm open to ML, AI, and applied-LLM engineering roles.
+  </p>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('themeToggle');
+  var root = document.documentElement;
+
+  function label() {
+    btn.textContent = root.dataset.theme === 'dark' ? '☀ light' : '☾ dark';
+  }
+
+  btn.addEventListener('click', function () {
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    label();
+  });
+
+  label();
+})();
+</script>
+
+</body>
+</html>
